@@ -2,7 +2,7 @@ import java.util.Objects;
 
 /**
  * @author Ali Çolak
- *         10.03.2021
+ * 10.03.2021
  */
 
 public class RationalNumber implements Comparable<RationalNumber> {
@@ -48,7 +48,7 @@ public class RationalNumber implements Comparable<RationalNumber> {
         return rationalNumber;
     }
 
-    public RationalNumber carp(RationalNumber numberToMultiply) {
+    public RationalNumber multiply(RationalNumber numberToMultiply) {
         int newNumerator = this.numerator * numberToMultiply.numerator;
         int newDenominator = this.denominator * numberToMultiply.denominator;
         RationalNumber rationalNumber = new RationalNumber(newNumerator, newDenominator);
