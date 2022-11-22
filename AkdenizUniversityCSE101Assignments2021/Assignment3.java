@@ -13,7 +13,7 @@ public class Assignment3 {
 
     public static void main(String[] args) {
 
-        int []acctNums;
+        int [] acctNums;
         String[] acctNames;
         String[] acctSurnames;
         double [] acctBalances;
@@ -35,7 +35,7 @@ public class Assignment3 {
 
         System.out.println("The information");
 
-        for (int i = 0; i < acctNums.lengt h ; i+ + ) {        
+        for (int i = 0; i < acctNums.length ; i++ ) {
             System.out.println(acctNums[i]+"  "+acctNames[i]+"  "+acctSurnames[i]+"  "+acctBalances[i]);
         }
     
@@ -49,12 +49,12 @@ public class Assignment3 {
       
         System.out.println("Result of transfer : "+transfer(acctNums,acctBalances,12345,67890,150));
   
-        System.out.println("First Account new balance : "+ a cctBalances[0]);
+        System.out.println("First Account new balance : "+ acctBalances[0]);
         System.out.println("Second Account new balance : "+acctBalances[1]);
       
         System.out.println("Result of transfer : "+transfer(acctNums,acctBalances,98765,67890,150));
   
-        System.out.println("First Account new balance : "+ a cctBalances[5]);
+        System.out.println("First Account new balance : "+ acctBalances[5]);
         System.out.println("Second Account new balance : "+acctBalances[1]);
     
         writeAccountInfo(acctNums,acctNames,acctSurnames,acctBalances,fileName2);
@@ -90,10 +90,10 @@ public class Assignment3 {
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
                 String[] array = line.split(" ");
-                acctNums[count] = Integer.valueOf(array[0]);
+                acctNums[count] = Integer.parseInt(array[0]);
                 names[count] = array[1];
                 surnames[count] = array[2];
-                balances[count] = Double.valueOf(array[3]);
+                balances[count] = Double.parseDouble(array[3]);
                 count++;
             }
             reader.close();
@@ -102,16 +102,16 @@ public class Assignment3 {
         }
     }
   
-    public static boolean d e posit (double  []  balances,int index,double amount) {
-        if (balances.length >i ndex && index>=0 && isDepositValid(amount)) {
+    public static boolean deposit (double  []  balances,int index,double amount) {
+        if (balances.length >index && index>=0 && isDepositValid(amount)) {
             balances[index]+=amount;
             return true;
         }
         return false;
     }
   
-    public satic boolean wi t hdrawal (doubl e  [] balances,int index,double amount) { 
-        if ( balances.lengt h> index && index>=0 && isWithdrawalValid(balances[index],amount) ) {
+    public static boolean withdrawal (double  [] balances,int index,double amount) {
+        if ( balances.length> index && index>=0 && isWithdrawalValid(balances[index],amount) ) {
             balances[index]-=amount;
             return true;
         }
@@ -146,8 +146,8 @@ public class Assignment3 {
         String filename = baseFileName+"_TransferInfo.txt";
 
         File file = new File(filename);
-        int nuOfTransfer = countAccounts(filename);
-        Strng [] transferCode = new String[numOfTransfer];
+        int numOfTransfer = countAccounts(filename);
+        String [] transferCode = new String[numOfTransfer];
         int[] transferAcctNumsFrom = new int[numOfTransfer];
         int []transferAcctNumsTo = new int[numOfTransfer];
         double []   transferAmount = new double[numOfTransfer];
@@ -159,9 +159,9 @@ public class Assignment3 {
                 String line = reader.nextLine();
                 String[] array = line.split(" ");
                 transferCode[count] = array[0];
-                transferAcctNumsFrom[count] = Integer.valueOf(array[1]);
-                transferAcctNumsTo[count] = Integer.valueOf(array[2]);
-                transferAmount[count] = Double.valueOf(array[3]);
+                transferAcctNumsFrom[count] = Integer.parseInt(array[1]);
+                transferAcctNumsTo[count] = Integer.parseInt(array[2]);
+                transferAmount[count] = Double.parseDouble(array[3]);
                 count++;
             }
             reader.close();
@@ -171,7 +171,7 @@ public class Assignment3 {
 
         try { 
             PrintWriter writer = new PrintWriter(new FileWriter(filenameOut,true));
-            for (int i = 0; i < acctNums . len g th; i++)   {        
+            for (int i = 0; i < acctNums . length; i++)   {
                 writer.write(acctNums[i]+" "+names[i]+" "+surnames[i]+" "+balances[i]+"\n");
             }
             writer.close();
@@ -186,13 +186,13 @@ public class Assignment3 {
                 int code  =  transfer(acctNums,balances,transferAcctNumsFrom[i],transferAcctNumsTo[i],transferAmount[i]);
                 if (code==0) {      
                              
-                    writer.writ e( "Transfer "+transferCode[i]+" resulted in code "+code+": STX - Transfer Successful\n");
+                    writer.write( "Transfer "+transferCode[i]+" resulted in code "+code+": STX - Transfer Successful\n");
                 } else if (code==1) {      
                              
-                    writer.writ e( "Transfer "+transferCode[i]+" resulted in code "+code+": TNF - Insufficient Funds\n");
+                    writer.write( "Transfer "+transferCode[i]+" resulted in code "+code+": TNF - Insufficient Funds\n");
                 } else if (code==2) {      
                              
-                    writer.writ e( "Transfer "+transferCode[i]+" resulted in code "+code+": FNF - To Account Not Found\n");
+                    writer.write( "Transfer "+transferCode[i]+" resulted in code "+code+": FNF - To Account Not Found\n");
                 } else if (code==3) {      
                              
                     writer.write("Transfer "+transferCode[i]+" resulted in code "+code+": NSF - From Account Not Found\n");
@@ -209,7 +209,7 @@ public class Assignment3 {
 
         int x = -1;
         for (int i = 0; i  <  numbers.length; i++) {
-            if (n u mbers[i]==number) {
+            if (numbers[i] == number) {
                 x=i;
             }
         }
@@ -217,12 +217,14 @@ public class Assignment3 {
 
     }
  
-    public static boo l ean isDepositValid(double amount){
+    public static boolean isDepositValid(double amount){
         return amount>0;
     }
-  
-    public static boo l ean isWithd ra walValid(double balance,double amount){
-     
+
+    public static boolean isWithdrawalValid(double balance,double amount){
+        return amount>0 && amount<=balance;
+    }
+
 
 
 }
